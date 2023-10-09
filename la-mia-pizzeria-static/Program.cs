@@ -2,6 +2,7 @@ using la_mia_pizzeria_static.CustomLoggers;
 using la_mia_pizzeria_static.Database;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace la_mia_pizzeria_static
 {
@@ -19,8 +20,12 @@ namespace la_mia_pizzeria_static
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
             builder.Services.AddSingleton<ICustomLogger, CustomFileLogger>();
             builder.Services.AddScoped<PizzaContext, PizzaContext>();
+            builder.Services.AddScoped<IRepositoryPizzas, RepositoryPizzas>();
 
             var app = builder.Build();
 
