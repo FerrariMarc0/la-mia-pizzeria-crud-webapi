@@ -1,0 +1,58 @@
+﻿
+
+@{
+    ViewData["Title"] = "Admin";
+}
+@model List<Pizza>
+
+@if(Model.Count() == 0)
+{
+    <h1>Nessun risultato da mostrare</h1>
+}
+else
+{
+    <div class="container shadow-lg py-3 text-center" style="margin: 5rem auto">
+        @if (User.IsInRole("ADMIN"))
+        {
+            <a href="@Url.Action("Create", "Pizza")" type="button" class="fs-1 text-warning" title="Aggiungi nuovo elemento"><i class="fa-solid fa-plus"></i></a>
+        }
+        
+        <table class="table table-bordered mt-5">
+            <thead>
+                <tr class="align-middle text-center">
+                    <th scope="col">ID</th>
+                    <th scope="col">Immagine</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Descrizione</th>
+                    <th scope="col">Prezzo</th>
+                    <th scope="col">Azioni</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(Pizza pizza in Model)
+                {
+                    <tr class="align-middle text-center">
+                        <th scope="row">@pizza.Id</th>
+                        <td><img class="w-50" src="@pizza.UrlImage" /></td>
+                        <td>@pizza.Name</td>
+                        <td><p>@pizza.Description</p></td>
+                        <td><span>€ @pizza.Price</span></td>
+                        <td class="d-flex mt-5 gap-3 px-5">
+                            <a class="btn btn-primary fs-3" href="@Url.Action("Details", "Pizza", new {id = pizza.Id})" title="Dettagli" tabindex="-1" role="button" aria-disabled="true"><i class="fa-regular fa-eye"></i></a>
+                            @if (User.IsInRole("ADMIN"))
+                            {
+                                <a class="btn btn-warning fs-3" href="@Url.Action("Update", "Pizza", new {id = pizza.Id})" title="Modifica" tabindex="-1" role="button" aria-disabled="true"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <form asp-controller="Pizza" asp-action="Delete" asp-route-id="@pizza.Id" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <button class="btn btn-danger fs-3" type="submit" title="Elimina"><i class="fa-regular fa-trash-can"></i></button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+                
+            </tbody>
+        </table>
+    </div>
+}
+

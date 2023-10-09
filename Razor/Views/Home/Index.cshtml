@@ -1,0 +1,86 @@
+﻿@using System.Globalization;
+@{
+    ViewData["Title"] = "Home Page";
+
+    string name = "Marco";
+    string lastName = "Ferrari";
+
+    int SumCalculator(int n)
+    {
+        int sum = 0;
+
+        for(int i = 1; i <= n; i++)
+        {
+            sum += i;
+        }
+        return sum;
+    }
+
+    string dante = "Nel mezzo del cammin di nostra vita";
+    int aCounter = dante.Count(c => c == 'a'); //conta quante volte appare la lettera "a" nella frase(dante)
+
+    List<int> integers = new();
+    Random random = new();
+    for(int i = 0; i < 20; i++)
+    {
+        int randomNumbers = random.Next(1, 91);
+        integers.Add(randomNumbers);
+    }
+    List<int> filteredNumbers = integers.Where(number => number >= 20 && number <= 70).ToList();
+
+    DateTime thisMoment = DateTime.Now;
+    CultureInfo translater = new("it-IT"); //traduco in lingua italiana
+}
+
+<h1>1. Dichiarare una variabile valorizzandola con il nostro nome. Dichiarare un'altra variabile valorizzandola con il nostro cognome. Stampare il nostro nome e cognome all'interno di un tag h2.</h1>
+<div class="container">
+    <h2><em>Nome e cognome: <mark>@name @lastName</mark> </em></h2>
+</div>
+
+<hr>
+
+<h1>2. Creare una funzione che stampa la somma dei numeri che vanno da 1 a n (con n passato come parametro - n incluso) Stampare dentro uno span il risultato.</h1>
+
+<div class="container">
+    <span class="fs-3"><mark>@SumCalculator(2)</mark></span>
+</div>
+
+<hr>
+
+<h1>3. Contare quante volte la lettera a è presente nalla frase "nel mezzo del cammin di nostra vita" e stampare questo valore in pagina</h1>
+
+<div class="container">
+    <span class="fs-3"><em>La lettera "A" è presente <mark>@aCounter</mark> volte</em></span>
+</div>
+
+<hr>
+
+<h1>4. Creare una List di 20 numeri interi (generati random da 1 a 90, 1 e 90 inclusi) e mostrare in pagina solo i numeri compresi tra 20 e 70</h1>
+
+<div class="container">
+    @foreach(int numbers in filteredNumbers)
+    {
+        <span class="fs-4"><mark>@numbers</mark></span>
+    }
+</div>
+
+<hr>
+
+<h1>5. Stampare in pagina la data e l'ora attuale (usando la classe DateTime) con il formato anno-mese-giorno ore:minuti:secondi</h1>
+
+<div class="container">
+    <span class="fs-3"><em>Adesso: <mark>@thisMoment</mark></em></span>
+</div>
+
+<hr>
+
+<h1>6. Partendo dalla data di oggi (usando la classe DateTime) stampare in pagina la data di 7 giorni fa, che giorno della settimana è oggi, che giorno della settimana sarà nello stesso giorno di oggi ma tra un anno.</h1>
+
+<div class="container">
+    <span class="fs-3"><em>7 giorni fa era il  <mark>@thisMoment.AddDays(-7)</mark></em></span><br>
+                                        <!--Ottengo il nome del giorno di oggi (28/09/2023) in italiano-->
+    <span class="fs-3"><em>Oggi è <mark>@translater.DateTimeFormat.GetDayName(thisMoment.DayOfWeek)</mark></em></span><br>
+                                                         <!--Ottengo il nome del giorno di oggi(28/09/2023) ma del prossimo anno in italiano-->
+    <span class="fs-3"><em>Fra un anno esatto sarà <mark>@translater.DateTimeFormat.GetDayName(thisMoment.AddYears(1).DayOfWeek)</mark></em></span>
+</div>
+

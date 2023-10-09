@@ -1,0 +1,63 @@
+﻿@model PizzaFormModel
+
+<div class="text-center py-1 shadow-lg mt-5">
+    <h1 class="fst-italic">Modifica informazioni</h1>
+</div>
+
+<div class="container shadow-lg border border-3 border-danger rounded p-5" style="margin-top: 5rem">
+    <form asp-controller="Pizza" asp-action="Update" asp-route-id="@Model.Pizza.Id" method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="mb-3">
+            <label asp-for="Pizza.Name" class="form-label text-uppercase">Nome</label>
+            <input asp-for="Pizza.Name" class="form-control" type="text" placeholder="Modifica nome">
+            <span asp-validation-for="Pizza.Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Pizza.Description" class="form-label text-uppercase">Descrizione</label>
+            <input asp-for="Pizza.Description" class="form-control" type="text" placeholder="Modifica descrizione">
+            <span asp-validation-for="Pizza.Description" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Pizza.UrlImage" class="form-label text-uppercase">Link immagine</label>
+            <input asp-for="Pizza.UrlImage" class="form-control" type="text" placeholder="Modifica url per dell'immagine">
+            <span asp-validation-for="Pizza.UrlImage" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Pizza.Price" class="form-label text-uppercase">Prezzo</label>
+            <input asp-for="Pizza.Price" class="form-control" type="text" placeholder="Modifica il prezzo">
+            <span asp-validation-for="Pizza.Price" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Pizza.Category" class="form-label text-uppercase">Categoria:</label>
+            <select asp-for="Pizza.CategoryId" class="form-select form-select-sm" aria-label="Small select example">
+                <option value"">Seleziona la categoria...</option>
+                @foreach (Category category in Model.Categories)
+                {
+                    @if(Model.Pizza.CategoryId == category.Id)
+                    {
+                        <option value="@category.Id" selected>@category.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="SelectedIngredientsId" class="form-label text-uppercase">Seleziona gli ingredienti:</label>
+            <select asp-for="SelectedIngredientsId" asp-items="@Model.Ingredients" class="form-select" multiple aria-label="Multiple select example"></select>
+        </div>
+
+        <div class="d-grid mt-5">
+            <button class="btn btn-success" type="submit">Salva modifiche</button>
+        </div>
+
+    </form>
+</div>

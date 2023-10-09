@@ -1,0 +1,74 @@
+html {
+  font-size: 14px;
+}
+
+body {
+    font-family:'Fira Code';
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.backg {
+    background-image: url("https://m.media-amazon.com/images/I/61OLGLMJOHL._AC_UF894,1000_QL80_.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+a, button{
+    cursor: pointer;
+}
+
+header li:hover, i:hover, a:hover{
+    transform: scale(1.1);
+}
+
+.my_main {
+    height: 100vh;
+}
+
+aside{
+    position: absolute;
+    right: 0;
+    background-color: pink;
+    padding: 100px
+}
+.one {
+    background-image: url('https://www.foodetails.com/wp-content/uploads/2020/09/blake-wisz-pPA-_q5v1a8-unsplash-570x381.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+}
+.two {
+    background-image: url('https://i2.wp.com/www.mangiaredadio.it/wp/wp-content/uploads/2023/09/LEL7965-scaled.jpg?fit=2560%2C1703&ssl=1');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center
+}
+section{
+    height: calc(100% / 2);
+    display: flex;
+    align-items: center;
+}
+
+.box{
+    height: 700px;
+    width: 700px;
+}
+
+.box_one {
+    margin-left: 70%;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.box_two{
+    margin-left: 5%;
+    background-color: rgba(100, 100, 100, 0.2)
+}
+
+.register_box{
+    background-color: red;
+}

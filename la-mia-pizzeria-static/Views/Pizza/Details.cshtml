@@ -1,0 +1,50 @@
+﻿@using la_mia_pizzeria_static.Models.Database_models;
+@model Pizza
+
+<div class="container rounded w-25 shadow-lg mt-5">
+    <div class="card container border-0 p-5" style="width: 25rem; margin-top: 10rem;">
+        
+            @if (Model.Category != null)
+            {
+                <h4 class="text-center mb-3"><span class="badge bg-success">@Model.Category.Name</span></h4>
+            }
+            else
+            {
+                <span class="text-center mb-3">Nessuna categoria associata</span>
+            }
+        <img src="@Model.UrlImage" class="card-img-top" alt="...">
+        <div class="card-body">
+            <p class="card-text">@Model.Description</p>
+        </div>
+        <ul class="list-unstyled">
+            <li class="list-group-item">Nome: @Model.Name</li>
+            <li class="list-group-item">Prezzo: @Model.Price</li>
+        </ul>
+        <span>Ingredienti:</span>
+            @if (Model.Ingredients != null && Model.Ingredients.Count > 0)
+            {
+                @foreach (Ingredient ingredient in Model.Ingredients)
+                {
+                    <span>@ingredient.Name</span>
+                    
+                }
+            }
+            else
+            {
+                <span class="text-warning">Nessun ingrediente associato.</span>
+            }
+
+        <div class="card-body text-center d-flex justify-content-between">
+            <a class="text-primary fs-1" href="@Url.Action("Index", "Pizza")" title="Torna indietro" tabindex="-1" role="button" aria-disabled="true"><i class="fa-solid fa-arrow-left"></i></a>
+            @if (User.IsInRole("ADMIN"))
+            {
+                <a class="text-warning fs-1" href="@Url.Action("Update", "Pizza", new {id = @Model.Id})" title="Modifica" tabindex="-1" role="button" aria-disabled="true"><i class="fa-regular fa-pen-to-square"></i></a>
+                <form asp-controller="Pizza" asp-action="Delete" asp-route-id="@Model.Id" method="post">
+                    @Html.AntiForgeryToken()
+                    <button class="del btn btn-danger fs-3" type="submit" title="Elimina"><i class="fa-regular fa-trash-can"></i></button>
+                </form>
+            }
+            
+        </div>
+    </div>
+</div>

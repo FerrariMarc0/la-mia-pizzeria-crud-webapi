@@ -1,0 +1,20 @@
+﻿<header>
+    <nav class="navbar-expand-sm navbar-toggleable-sm mt-3">
+        <div class="container backg d-flex flex-end">
+            <ul class="d-flex fs-3 list-unstyled py-4 gap-5 text-uppercase">
+                <li><a class="nav-link text-success fw-bold" href="@Url.Action("Index", "Home")">Home</a></li>
+                <li><a class="nav-link text-light fw-bold" href="@Url.Action("Index", "Pizza")">Lista pizze</a></li>
+                <li><a class="nav-link text-light fw-bold">Contatti</a></li>
+                <li><a class="nav-link text-light fw-bold">Chi siamo</a></li>
+                <div class="dropdown-center">
+                    <a class="nav-link text-danger fw-bold dropdown dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Area riservata</a>
+
+                    <ul class="dropdown-menu">
+                        <partial name="_LoginPartial" />
+                    </ul>
+                </div>
+                
+            </ul>
+        </div>
+    </nav>
+</header>
