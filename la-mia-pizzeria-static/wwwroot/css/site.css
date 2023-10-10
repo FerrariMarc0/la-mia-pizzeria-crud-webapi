@@ -18,6 +18,10 @@ body {
     background-size: cover;
 }
 
+.backg ul{
+    margin-left: 150px;
+}
+
 a, button{
     cursor: pointer;
 }

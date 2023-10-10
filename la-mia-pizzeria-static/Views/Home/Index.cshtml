@@ -4,8 +4,10 @@
 
 <div class="my_main w-100">
     <section class="one">
-        <div class="box box_one shadow-lg rounded">
-
+        <div class="box box_one shadow-lg rounded text-center">
+            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+              Le nostre pizze
+            </button>
         </div>
     </section>
     <section class="two">
@@ -17,6 +19,93 @@
             </div>
         </div>
     </section>
+    <div class="offcanvas offcanvas-top m-auto w-50 h-100 shadow-lg p-5" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+
+        <div class="text-center d-flex justify-content-center">
+            <h2 class="offcanvas-title" id="offcanvasExampleLabel">Lista di tutte le pizze</h2>
+        </div>
+
+        <div class="my-3 row">
+            <label for="search" class="col-sm-2 col-form-label">Cerca per nome:</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="w-50" id="search" placeholder="Scrivi il nome della pizza">
+            </div>
+        </div>
+
+        <div class="offcanvas-body">
+
+            <div id="spinners" class="text-center mt-5 d-flex flex-column gap-2">
+                <div>
+                    <div class="spinner-grow text-success" role="status" style="width: 3rem; height: 3rem;"></div>
+                    <div class="spinner-grow text-light" role="status" style="width: 3rem; height: 3rem;"></div>
+                    <div class="spinner-grow text-danger" role="status" style="width: 3rem; height: 3rem;"></div>
+                </div>
+                <div><span>Sto sfornando le pizze...</span></div>
+            </div>
+
+
+            <div id="pizzas_not_found" class="row">
+                <div class="col-12 d-none">
+                    <h3>Nessun articolo trovato.</h3>
+                </div>
+            </div>
+
+            <div id="pizzas_container" class="row d-none d-flex gap-5">
+                <div class="col-12">
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 
+@section Scripts{
+
+    <script type="text/javascript">
+
+        loadAllPizzas();
+
+        function loadAllPizzas() {
+            axios.get('/api/Pizzas/GetPizzas').then((response) => {
+                
+                console.log(response);
+
+                let pizzas = response.data;
+                let pizzaEmpty = document.getElementById("pizzas_not_found");
+                let spinnersOff = document.getElementById("spinners");
+                let pizzasList = document.getElementById("pizzas_container");
+
+                if (pizzas.length == 0) {
+
+                    pizzaEmpty.classList.remove("d-none");
+                    spinnersOff.classList.add("d-none");
+
+                } else {
+
+                    spinnersOff.classList.add("d-none");
+                    pizzasList.classList.remove("d-none");
+
+                    pizzas.forEach(pizza => {
+                        console.log(pizza);
+
+                        pizzasList.innerHTML +=
+                        `
+                            <div class="card rounded py-2" style="width: 18rem;">
+                                <h3 class="card-title text-center">${pizza.name}</h5>
+                                <img src="${pizza.urlImage}" class="card-img-top" alt="Immagine: ${pizza.name}">
+                                <div class="card-body">
+                                    
+                                    <p class="card-text">${pizza.description}</p>
+                                </div>
+                            </div>
+
+                        `
+                    })
+                }
+            })
+        }
+
+
+    </script>
+    }
